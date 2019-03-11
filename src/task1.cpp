@@ -3,6 +3,8 @@
 unsigned int Task1::ColumnWidth = 15;
 
 void Task1::ExecuteTask() {
+  cout << "Первое задание" << endl;
+
   double range_start = CinVariable<double>("начало диапазона");
   double  range_end = CinVariable<double>("конец диапазона");
   double step = CinVariable<double>("шаг вычисления");

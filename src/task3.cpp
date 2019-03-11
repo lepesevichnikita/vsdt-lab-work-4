@@ -6,6 +6,8 @@ Task3::Task3(const unsigned int& size):
   }
 
 void Task3::ExecuteTask() {
+  cout << "Третье задание" << endl;
+
   unsigned int size;
   cout << "Введите длину массива (<=500): "; cin >> size; cout << endl;
 
