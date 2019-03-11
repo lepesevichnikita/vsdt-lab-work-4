@@ -1,23 +1,24 @@
 #include "task1.h"
 
+unsigned int Task1::ColumnWidth = 15;
+
 void Task1::ExecuteTask() {
-  double range_start, range_end, step;
-  cout << "Введите начало диапазона: ";
-  cin >> range_start;
-  cout << endl;
-
-  cout << "Введите конец диапазона: ";
-  cin >> range_end;
-  cout << endl;
-
-  cout << "Введите шаг вычисления: ";
-  cin >> step;
-  cout << endl;
-
+  double range_start = CinVariable<double>("начало диапазона");
+  double  range_end = CinVariable<double>("конец диапазона");
+  double step = CinVariable<double>("шаг вычисления");
   Task1 * task = new Task1(range_start, range_end, step);
-  task->ShowYInRange();
+  task->ShowResult();
 
   delete task;
+}
+
+template <typename T>
+T Task1::CinVariable(const string& variableName, const char& separator) {
+  T result;
+  cout << "Введите " << variableName << ":" << separator;
+  cin >> result;
+  cout << endl;
+  return result;
 }
 
 Task1::Task1(const double& range_start, const double& range_end, const double& step):
@@ -26,18 +27,35 @@ Task1::Task1(const double& range_start, const double& range_end, const double& s
     CalculateYInRange();
   }
 
-void Task1::ShowVector(const string& start, const vector<double>& vec) {
-  cout << setw(5) << start << '|';
-  for(double const& number: vec)
-    cout << setw(5) << number;
+template<typename T>
+void Task1::ShowVector(const vector<T>& vec) {
+  for(auto const& number: vec)
+    cout << setw(ColumnWidth) << number;
   cout << endl;
 }
 
-void Task1::ShowYInRange() {
-  ShowVector("x", x_range_);
-  ShowVector("y", y_in_range_);
-  ShowVector("s", s_range_);
-  ShowVector("|y-s|", y_minus_s_range_);
+void Task1::ShowHeadOfResult() {
+  cout << setw(ColumnWidth) << "x";
+  cout << setw(ColumnWidth) << "y(x)";
+  cout << setw(ColumnWidth) << "s(x)";
+  cout << setw(ColumnWidth) << "|y(x)-s(x)|";
+  cout << endl;
+}
+
+void Task1::ShowResult() {
+  size_t items_count = x_range_.size();
+  ShowHeadOfResult();
+  for (size_t i = 0; i < items_count; i++) { 
+    cout << setw(ColumnWidth) << x_range_[i];
+    cout << setw(ColumnWidth) << y_in_range_[i];
+    cout << setw(ColumnWidth) << s_range_[i];
+    cout << setw(ColumnWidth) << y_minus_s_range_[i];
+    cout << endl;
+  }
+  //ShowVector("x", x_range_);
+  //ShowVector("y", y_in_range_);
+  //ShowVector("s", s_range_);
+  //ShowVector("|y-s|", y_minus_s_range_);
 }
 
 void Task1::BuildXRange() {
