@@ -11,6 +11,7 @@ using namespace std;
 
 class Task1 {
   public:
+    static unsigned int ColumnWidth;
 
     Task1(const double& , const double&, const double&);
 
@@ -18,7 +19,7 @@ class Task1 {
       return y_in_range_;
     }
 
-    void ShowYInRange();
+    void ShowResult();
 
     static void ExecuteTask();
 
@@ -30,6 +31,10 @@ class Task1 {
       return x-3*pow(cos(DegressToRad(1.04*x)), 2);
     }
 
+  protected:
+    template <typename T>
+    static T CinVariable(const string&, const char& separator=' ');
+
   private:
     double range_start_, range_end_, step_;
     vector<double> y_in_range_;
@@ -39,7 +44,10 @@ class Task1 {
 
     void BuildXRange();
     void CalculateYInRange();
-    void ShowVector(const string&, const vector<double>&);
+    void ShowHeadOfResult();
+
+    template <typename T>
+    void ShowVector(const vector<T>&);
 };
 
 #endif
